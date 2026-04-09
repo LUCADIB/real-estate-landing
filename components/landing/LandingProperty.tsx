@@ -4,7 +4,7 @@ import { MobileGallery } from './MobileGallery';
 import { DesktopGallery } from './DesktopGallery';
 import { formatYoutubeUrl } from '@/lib/formatYoutubeUrl';
 
-type Property = {
+export type Property = {
   title: string;
   price: number | string;
   description?: string | null;
@@ -99,9 +99,9 @@ export function LandingProperty({ property }: { property: Property }) {
             </h2>
             <ReactMarkdown
               components={{
-                p: ({node, ...props}) => <p className="mb-3 text-gray-600" {...props} />,
-                strong: ({node, ...props}) => <strong className="font-semibold text-gray-900" {...props} />,
-                li: ({node, ...props}) => <li className="ml-4 list-disc text-gray-600" {...props} />,
+                p: ({ node, ...props }) => <p className="mb-3 text-gray-600" {...props} />,
+                strong: ({ node, ...props }) => <strong className="font-semibold text-gray-900" {...props} />,
+                li: ({ node, ...props }) => <li className="ml-4 list-disc text-gray-600" {...props} />,
               }}
             >
               {property.description || ''}

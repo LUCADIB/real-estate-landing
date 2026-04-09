@@ -46,7 +46,7 @@ export function LandingProperty({ property }: { property: Property }) {
       </section>
 
       {/* ================= MOBILE CONTENT (NUEVA ESTRUCTURA) ================= */}
-      <div className="relative z-20 block md:hidden bg-white rounded-t-[30px] -mt-29 pt-6 px-5 pb-8 shadow-[0_-6px_20px_rgba(0,0,0,0.06)]">
+      <div className="relative z-20 block md:hidden bg-white rounded-t-[30px] -mt-27 pt-6 px-5 pb-8 shadow-[0_-6px_20px_rgba(0,0,0,0.06)]">
 
         {/* INFO */}
         <h1 className="text-[26px] font-semibold leading-tight text-gray-900">

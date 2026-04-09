@@ -36,6 +36,38 @@ export function ImageModal({ images, initialIndex, onClose }: ImageModalProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); 
 
+  const handleNext = () => {
+    setCurrentIndex((prev) => {
+      const nextIdx = (prev + 1) % displayImages.length;
+      if (modalContainerRef.current) {
+        modalContainerRef.current.scrollTo({ left: modalContainerRef.current.clientWidth * nextIdx, behavior: 'smooth' });
+      }
+      return nextIdx;
+    });
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => {
+      const prevIdx = prev === 0 ? displayImages.length - 1 : prev - 1;
+      if (modalContainerRef.current) {
+        modalContainerRef.current.scrollTo({ left: modalContainerRef.current.clientWidth * prevIdx, behavior: 'smooth' });
+      }
+      return prevIdx;
+    });
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') handleNext();
+      if (e.key === 'ArrowLeft') handlePrev();
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const hideScrollbarStyle = { scrollbarWidth: 'none' as const, msOverflowStyle: 'none' as const };
 
   return (
@@ -58,18 +90,41 @@ export function ImageModal({ images, initialIndex, onClose }: ImageModalProps) {
          {currentIndex + 1} / {displayImages.length}
       </div>
 
+      {/* Desktop Navigation Overlays */}
+      <button
+        onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-[110] hidden md:flex items-center justify-center p-3 rounded-full bg-white/80 hover:bg-white shadow-md hover:scale-105 transition text-gray-900 focus:outline-none"
+        aria-label="Imagen anterior"
+      >
+        <span className="flex items-center justify-center font-bold text-lg leading-none select-none">❮</span>
+      </button>
+
+      <button
+        onClick={(e) => { e.stopPropagation(); handleNext(); }}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-[110] hidden md:flex items-center justify-center p-3 rounded-full bg-white/80 hover:bg-white shadow-md hover:scale-105 transition text-gray-900 focus:outline-none"
+        aria-label="Siguiente imagen"
+      >
+        <span className="flex items-center justify-center font-bold text-lg leading-none select-none">❯</span>
+      </button>
+
       <div 
         ref={modalContainerRef}
-        className="no-scrollbar flex h-full w-full snap-x snap-mandatory items-center justify-start overflow-x-auto"
+        className="no-scrollbar relative flex h-full w-full snap-x snap-mandatory items-center justify-start overflow-x-auto"
         onScroll={handleScroll}
         style={hideScrollbarStyle}
       >
         {displayImages.map((img, idx) => (
-          <div key={idx} className="flex h-full w-full shrink-0 snap-center items-center justify-center p-2">
+          <div key={idx} className="flex h-full w-full shrink-0 snap-center items-center justify-center p-2 relative">
             <img 
               src={img} 
               alt={`FullScreen Imagen ${idx + 1}`} 
-              className="max-h-screen w-full object-contain" 
+              className="max-h-screen w-full object-contain md:cursor-pointer select-none" 
+              onClick={(e) => {
+                // Determine if it's mobile or desktop essentially based on pointer behavior, 
+                // but since it's md:cursor-pointer, clicking should ideally advance in desktop mode.
+                handleNext();
+              }}
+              draggable={false}
             />
           </div>
         ))}

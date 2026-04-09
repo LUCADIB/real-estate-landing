@@ -26,29 +26,13 @@ export function LandingProperty({ property }: { property: Property }) {
 
   return (
     <article className="min-h-screen w-full bg-white pb-24">
+
+      {/* ================= HERO ================= */}
       <section className="w-full">
+
         {/* MOBILE */}
-        <div className="block md:hidden">
-          <div className="relative">
-            <MobileGallery images={images} />
-
-            <div className="absolute bottom-0 left-0 w-full pointer-events-none">
-              <div className="rounded-t-[28px] bg-white px-5 pb-6 pt-5 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] pointer-events-auto">
-                <h1 className="mb-1 text-[28px] font-semibold leading-[1.1] text-gray-900">
-                  {property.title}
-                </h1>
-
-                {property.location ? (
-                  <p className="mb-2 text-sm text-gray-500">{property.location}</p>
-                ) : null}
-
-                <p className="text-sm text-gray-600">
-                  {property.bedrooms ?? 0} hab · {property.bathrooms ?? 0} baños ·{' '}
-                  {property.area ?? 0} m²
-                </p>
-              </div>
-            </div>
-          </div>
+        <div className="block md:hidden pb-20">
+          <MobileGallery images={images} />
         </div>
 
         {/* DESKTOP */}
@@ -56,64 +40,104 @@ export function LandingProperty({ property }: { property: Property }) {
           <h1 className="mb-4 text-3xl font-semibold text-gray-900">
             {property.title}
           </h1>
-
           <DesktopGallery title={property.title} images={images} />
         </div>
+
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 py-8 md:py-10">
-        <section className="mb-10 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {property.bedrooms ? (
-            <div className="rounded-xl bg-gray-50 p-4 text-center">
-              <p className="text-lg font-semibold text-gray-900">{property.bedrooms}</p>
-              <p className="text-sm text-gray-500">Habitaciones</p>
-            </div>
-          ) : null}
+      {/* ================= MOBILE CONTENT (NUEVA ESTRUCTURA) ================= */}
+      <div className="relative z-20 block md:hidden bg-white rounded-t-[30px] -mt-29 pt-6 px-5 pb-8 shadow-[0_-6px_20px_rgba(0,0,0,0.06)]">
 
-          {property.bathrooms ? (
-            <div className="rounded-xl bg-gray-50 p-4 text-center">
-              <p className="text-lg font-semibold text-gray-900">{property.bathrooms}</p>
-              <p className="text-sm text-gray-500">Baños</p>
-            </div>
-          ) : null}
+        {/* INFO */}
+        <h1 className="text-[26px] font-semibold leading-tight text-gray-900">
+          {property.title}
+        </h1>
 
-          {property.area ? (
-            <div className="rounded-xl bg-gray-50 p-4 text-center">
-              <p className="text-lg font-semibold text-gray-900">{property.area} m²</p>
-              <p className="text-sm text-gray-500">Área</p>
-            </div>
-          ) : null}
+        {property.location && (
+          <p className="text-sm text-gray-500 mb-2">
+            {property.location}
+          </p>
+        )}
 
-          {property.garage ? (
-            <div className="rounded-xl bg-gray-50 p-4 text-center">
-              <p className="text-lg font-semibold text-gray-900">{property.garage}</p>
-              <p className="text-sm text-gray-500">Garaje</p>
+        {/* <p className="text-sm text-gray-600 mb-6">
+          {property.bedrooms ?? 0} hab · {property.bathrooms ?? 0} baños · {property.area ?? 0} m²
+        </p> */}
+
+        {/* MÉTRICAS */}
+        <section className="grid grid-cols-2 gap-4 mb-8 mt-8">
+
+          {property.bedrooms && (
+            <div className="bg-white border border-gray-100 rounded-2xl p-5 text-center shadow-sm hover:shadow-md transition">
+              <p className="text-2xl font-semibold text-gray-900">
+                {property.bedrooms}
+              </p>
+              <p className="text-xs text-gray-500 tracking-wide">
+                HABITACIONES
+              </p>
             </div>
-          ) : null}
+          )}
+
+          {property.bathrooms && (
+            <div className="bg-white border border-gray-100 rounded-2xl p-5 text-center shadow-sm hover:shadow-md transition">
+              <p className="text-2xl font-semibold text-gray-900">
+                {property.bathrooms}
+              </p>
+              <p className="text-xs text-gray-500 tracking-wide">
+                BAÑOS
+              </p>
+            </div>
+          )}
+
+          {property.area && (
+            <div className="bg-white border border-gray-100 rounded-2xl p-5 text-center shadow-sm hover:shadow-md transition">
+              <p className="text-2xl font-semibold text-gray-900">
+                {property.area} m²
+              </p>
+              <p className="text-xs text-gray-500 tracking-wide">
+                ÁREA
+              </p>
+            </div>
+          )}
+
+          {property.garage && (
+            <div className="bg-white border border-gray-100 rounded-2xl p-5 text-center shadow-sm hover:shadow-md transition">
+              <p className="text-2xl font-semibold text-gray-900">
+                {property.garage}
+              </p>
+              <p className="text-xs text-gray-500 tracking-wide">
+                GARAJE
+              </p>
+            </div>
+          )}
+
         </section>
 
-        {property.description ? (
-          <section className="mb-12">
-            <h2 className="mb-4 text-2xl font-semibold text-gray-900">
+        {/* DESCRIPCIÓN */}
+        {property.description && (
+          <section className="mb-8">
+            <h2 className="mb-4 text-xl font-semibold text-gray-900">
               Acerca de esta propiedad
             </h2>
+
             <ReactMarkdown
               components={{
-                p: ({ node, ...props }) => <p className="mb-3 text-gray-600" {...props} />,
-                strong: ({ node, ...props }) => <strong className="font-semibold text-gray-900" {...props} />,
-                li: ({ node, ...props }) => <li className="ml-4 list-disc text-gray-600" {...props} />,
+                p: ({ ...props }) => <p className="mb-3 text-gray-600" {...props} />,
+                strong: ({ ...props }) => <strong className="font-semibold text-gray-900" {...props} />,
+                li: ({ ...props }) => <li className="ml-4 list-disc text-gray-600" {...props} />,
               }}
             >
-              {property.description || ''}
+              {property.description}
             </ReactMarkdown>
           </section>
-        ) : null}
+        )}
 
-        {property.video_url ? (
-          <section className="mb-12">
-            <h2 className="mb-6 text-2xl font-semibold text-gray-900">
+        {/* VIDEO */}
+        {property.video_url && (
+          <section className="mb-8">
+            <h2 className="mb-4 text-xl font-semibold text-gray-900">
               Recorrido en video
             </h2>
+
             <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100">
               <iframe
                 src={formatYoutubeUrl(property.video_url)}
@@ -123,26 +147,164 @@ export function LandingProperty({ property }: { property: Property }) {
               />
             </div>
           </section>
-        ) : null}
+        )}
 
-        {property.tour_360_url ? (
-          <section className="mb-12">
-            <h2 className="mb-6 text-2xl font-semibold text-gray-900">
+        {/* TOUR */}
+        {property.tour_360_url && (
+          <section>
+            <h2 className="mb-4 text-xl font-semibold text-gray-900">
               Tour virtual 360°
             </h2>
+
             <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100">
               <iframe
                 src={property.tour_360_url}
                 className="h-full w-full border-0"
                 allowFullScreen
-                title="Tour virtual 360"
+                title="Tour virtual"
               />
             </div>
           </section>
-        ) : null}
+        )}
+
+        <section className="mt-12 mb-24 text-center">
+          <div className="bg-gray-50 rounded-2xl p-6 md:p-10">
+
+            <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-2">
+              ¿Te interesa esta propiedad?
+            </h2>
+
+            <p className="text-sm md:text-base text-gray-600 mb-6">
+              Escríbenos y recibe toda la información o agenda una visita
+            </p>
+
+
+          </div>
+        </section>
+
       </div>
 
-      <div className="fixed bottom-0 left-0 z-50 w-full border-t bg-white p-4">
+      {/* ================= DESKTOP CONTENT (SIN CAMBIOS) ================= */}
+      <div className="hidden md:block mx-auto max-w-6xl px-4 py-8 md:py-10">
+
+        <section className="mb-12 grid grid-cols-2 gap-6 md:grid-cols-4">
+
+          {property.bedrooms && (
+            <div className="bg-white border border-gray-100 rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition">
+              <p className="text-3xl font-semibold text-gray-900">
+                {property.bedrooms}
+              </p>
+              <p className="text-sm text-gray-500 mt-1 tracking-wide">
+                Habitaciones
+              </p>
+            </div>
+          )}
+
+          {property.bathrooms && (
+            <div className="bg-white border border-gray-100 rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition">
+              <p className="text-3xl font-semibold text-gray-900">
+                {property.bathrooms}
+              </p>
+              <p className="text-sm text-gray-500 mt-1 tracking-wide">
+                Baños
+              </p>
+            </div>
+          )}
+
+          {property.area && (
+            <div className="bg-white border border-gray-100 rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition">
+              <p className="text-3xl font-semibold text-gray-900">
+                {property.area} m²
+              </p>
+              <p className="text-sm text-gray-500 mt-1 tracking-wide">
+                Área
+              </p>
+            </div>
+          )}
+
+          {property.garage && (
+            <div className="bg-white border border-gray-100 rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition">
+              <p className="text-3xl font-semibold text-gray-900">
+                {property.garage}
+              </p>
+              <p className="text-sm text-gray-500 mt-1 tracking-wide">
+                Garaje
+              </p>
+            </div>
+          )}
+
+        </section>
+
+        {property.description && (
+          <section className="mb-12">
+            <h2 className="mb-4 text-2xl font-semibold text-gray-900">
+              Acerca de esta propiedad
+            </h2>
+
+            <ReactMarkdown
+              components={{
+                p: ({ ...props }) => <p className="mb-3 text-gray-600" {...props} />,
+                strong: ({ ...props }) => <strong className="font-semibold text-gray-900" {...props} />,
+                li: ({ ...props }) => <li className="ml-4 list-disc text-gray-600" {...props} />,
+              }}
+            >
+              {property.description}
+            </ReactMarkdown>
+          </section>
+        )}
+
+        {property.video_url && (
+          <section className="mb-12">
+            <h2 className="mb-6 text-2xl font-semibold text-gray-900">
+              Recorrido en video
+            </h2>
+
+            <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100">
+              <iframe
+                src={formatYoutubeUrl(property.video_url)}
+                className="h-full w-full border-0"
+                allowFullScreen
+                title="Recorrido en video"
+              />
+            </div>
+          </section>
+        )}
+
+        {property.tour_360_url && (
+          <section className="mb-12">
+            <h2 className="mb-6 text-2xl font-semibold text-gray-900">
+              Tour virtual 360°
+            </h2>
+
+            <div className="aspect-video w-full overflow-hidden rounded-xl bg-gray-100">
+              <iframe
+                src={property.tour_360_url}
+                className="h-full w-full border-0"
+                allowFullScreen
+                title="Tour virtual"
+              />
+            </div>
+          </section>
+        )}
+
+        <section className="mt-12 mb-24 text-center">
+          <div className="bg-gray-50 rounded-2xl p-6 md:p-10">
+
+            <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-2">
+              ¿Te interesa esta propiedad?
+            </h2>
+
+            <p className="text-sm md:text-base text-gray-600 mb-6">
+              Escríbenos y recibe toda la información o agenda una visita
+            </p>
+
+          </div>
+        </section>
+
+      </div>
+
+      {/* ================= CTA ================= */}
+      <div className="fixed bottom-0 left-0 z-50 w-full border-t border-green-500/20 bg-white p-4">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
           <div>
             <p className="text-sm text-gray-500">Precio</p>
@@ -161,6 +323,7 @@ export function LandingProperty({ property }: { property: Property }) {
           </a>
         </div>
       </div>
+
     </article>
   );
 }

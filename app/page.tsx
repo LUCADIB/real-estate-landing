@@ -93,6 +93,101 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ================= PLANES ================= */}
+      <section className="bg-white py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-4">
+
+          {/* TITLE */}
+          <div className="mb-12 text-center md:mb-16">
+            <h2 className="text-2xl font-extrabold md:text-4xl">
+              3 formas de vender tu propiedad
+            </h2>
+            <p className="mt-4 text-gray-600 text-sm md:text-lg">
+              No somos inmobiliaria. No cobramos comisión. Te llevamos los compradores.
+            </p>
+          </div>
+
+          {/* PLANS */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+
+            {/* PLAN 1 */}
+            <div className="flex flex-col rounded-2xl border border-gray-100 bg-gray-50 p-6 shadow-sm md:p-8">
+              <h3 className="text-lg font-bold mb-2">Arranque</h3>
+              <p className="text-3xl font-extrabold mb-4">$40</p>
+
+              <ul className="text-sm text-gray-600 space-y-2 mb-6">
+                <li>✔ Landing profesional</li>
+                <li>✔ Fotos profesionales</li>
+                <li>✔ Video </li>
+                <li>✔ Publicación en TikTok y Redes</li>
+                <li>✔ WhatsApp directo</li>
+              </ul>
+
+              <a
+                href="https://wa.me/593963737070?text=Hola,%20quiero%20el%20plan%20Arranque"
+                target="_blank"
+                className="mt-auto rounded-xl bg-green-500 py-3 text-center text-sm font-bold text-white hover:bg-green-600"
+              >
+                Empezar
+              </a>
+            </div>
+
+            {/* PLAN 2 */}
+            <div className="relative flex flex-col rounded-2xl border-2 border-green-500 bg-white p-6 shadow-lg md:p-8">
+
+              {/* BADGE */}
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-green-500 px-4 py-1 text-xs font-bold text-white">
+                MÁS VENDIDO
+              </div>
+
+              <h3 className="text-lg font-bold mb-2">Impulso</h3>
+              <p className="text-3xl font-extrabold mb-4">$90</p>
+
+              <ul className="text-sm text-gray-600 space-y-2 mb-6">
+                <li>✔ Landing optimizada</li>
+                <li>✔ Fotos HDR</li>
+                <li>✔ Video 4k</li>
+                <li>✔ Tour virtual 360° 10 etapas</li>
+                <li>✔ TikTok optimizado</li>
+              </ul>
+
+              <a
+                href="https://wa.me/593963737070?text=Hola,%20quiero%20el%20plan%20Impulso"
+                target="_blank"
+                className="mt-auto rounded-xl bg-green-500 py-3 text-center text-sm font-bold text-white hover:bg-green-600"
+              >
+                Elegir plan
+              </a>
+            </div>
+
+            {/* PLAN 3 */}
+            <div className="flex flex-col rounded-2xl border border-gray-100 bg-gray-50 p-6 shadow-sm md:p-8">
+              <h3 className="text-lg font-bold mb-2">Venta Rápida</h3>
+
+              <p className="text-xl font-bold text-gray-900">Desde $200</p>
+              <p className="text-xs text-gray-500 mb-4">o $300 todo incluido</p>
+
+              <ul className="text-sm text-gray-600 space-y-2 mb-6">
+                <li>✔ Todo lo anterior sin límites</li>
+                <li>✔ Campañas Meta Ads</li>
+                <li>✔ Segmentación real</li>
+                <li>✔ Clientes directos</li>
+                <li>✔ Mayor exposición</li>
+              </ul>
+
+              <a
+                href="https://wa.me/593963737070?text=Hola,%20quiero%20el%20plan%20Venta%20Rápida"
+                target="_blank"
+                className="mt-auto rounded-xl bg-green-500 py-3 text-center text-sm font-bold text-white hover:bg-green-600"
+              >
+                Quiero vender rápido
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* ================= FEATURED PROPERTIES ================= */}
       <section className="bg-gray-50 py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-4">

@@ -21,8 +21,22 @@ export type Property = {
 
 export function LandingProperty({ property }: { property: Property }) {
   const images = property.images ?? [];
-  const whatsappNumber = property.whatsapp.replace(/\D/g, '');
   const formattedPrice = Number(property.price || 0).toLocaleString();
+
+  // ===== NORMALIZAR WHATSAPP =====
+  let whatsappNumber = (property.whatsapp || '').replace(/\D/g, '');
+
+  if (whatsappNumber) {
+    // Si empieza con 0 → Ecuador
+    if (whatsappNumber.startsWith('0')) {
+      whatsappNumber = '593' + whatsappNumber.slice(1);
+    }
+
+    // Si no tiene código país → asumir Ecuador
+    if (!whatsappNumber.startsWith('593')) {
+      whatsappNumber = '593' + whatsappNumber;
+    }
+  }
 
   return (
     <article className="min-h-screen w-full bg-white pb-24">
@@ -311,16 +325,18 @@ export function LandingProperty({ property }: { property: Property }) {
             <p className="text-xl font-bold text-gray-900">${formattedPrice}</p>
           </div>
 
-          <a
-            href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-              `Hola, estoy interesado en la propiedad: ${property.title}`
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-xl bg-green-500 px-6 py-3 font-semibold text-white transition hover:bg-green-600"
-          >
-            Contactar
-          </a>
+          {whatsappNumber && (
+            <a
+              href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                `Hola, estoy interesado en la propiedad: ${property.title}`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl bg-green-500 px-6 py-3 font-semibold text-white transition hover:bg-green-600"
+            >
+              Contactar
+            </a>
+          )}
         </div>
       </div>
 
